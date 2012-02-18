@@ -1,0 +1,21 @@
+persons: 
+  - name: Alice
+    age: 20
+    length: 175
+    weight: 65
+  - name: Caligula
+    age: 400
+    length: 165
+    misc: Really old guy
+  - name: Bob
+    length: 192
+    weigth: 89
+  - name: Daniel
+    age: 63
+    length: 172
+    weight: 79
+    misc: Quite old too
+  - name: Elizabeth
+    age: 32
+    length: 168
+    weight: 68
