@@ -22,8 +22,8 @@ class Array
 	end
 	
 	def range_proc(data, arity)
-		range_data = data.delete(:interval)
-		range = Range.new(range_data[:min] || 0, range_data[:max])
+		range_data = data.delete(:interval)		   
+		range = Range.new((range_data[:min] || 0), range_data[:max])
 		p = Proc.new do |obj|
 			t = true
 			data.each_pair {|k,v| t = range.include?(obj.send(data[:name])) }
@@ -33,13 +33,16 @@ class Array
 	end
 	
 	def method_missing(name, *args, &block)
-		match = name.to_s.match(/select_(first|all)_where_(attr)_is(_in)?/)
-		puts match
-		super
+		match = name.to_s.match(/select_(first|all)_where_([a-zA-Z!?]+)_is(_in)?/)
+		if match
+			match[3].nil? ? single_proc({match[2].to_sym => args[0]}, match[1].eql?("first") ? :single : :all) : range_proc({:name => match[2].to_sym,:interval => {:min => args[0], :max => args[1]}}, match[1].eql?("first") ? :single : :all)
+		else
+			super
+		end
 	end
 	
 	def respond_to?(name)
-		
+		return name.to_s.match(/select_(first|all)_where_([a-zA-Z!?]+)_is(_in)?/)
 	end
 	
 end
