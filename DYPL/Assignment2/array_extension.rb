@@ -33,7 +33,9 @@ class Array
 	end
 	
 	def method_missing(name, *args, &block)
-		
+		match = name.to_s.match(/select_(first|all)_where_(attr)_is(_in)?/)
+		puts match
+		super
 	end
 	
 	def respond_to?(name)
