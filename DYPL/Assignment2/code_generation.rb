@@ -10,10 +10,11 @@ module Model
 	end
 	def self.attribute(_n, tp)
 		@current.class_eval do
-			define_method(_n) do     
-				d = instance_variable_get(("@"+_n.to_s).to_sym);
-				if d.is_a?(tp) || d.nil?        
-					if @@constraints[_n].all?{|c| self.instance_eval(c)}					    
+			define_method(_n) do                    
+				d = instance_variable_get(("@"+_n.to_s).to_sym);    
+				dc = Decontextualizer.set(_n, d)
+				if d.is_a?(tp) || d.nil? 
+					if @@constraints[_n].all?{|c| dc.check(c)}
 						return d
 					else
 						raise ("#{_n} does not satisfy conditions")
@@ -27,10 +28,11 @@ module Model
 			define_method((_n.to_s+"=").to_sym) do |a|
 				if a.is_a?(tp)         
 					instance_variable_set(("@"+_n.to_s).to_sym, a)
-					if @@constraints[_n].all?{|c| self.instance_eval(c)}
+					dc = Decontextualizer.set(_n, a)
+					if @@constraints[_n].all?{|c| dc.check(c)}
 						return a
 					else
-						raise ("#{_n} does not satisfy conditinos")						
+						raise ("#{_n} does not satisfy conditinos")
 					end
 				else
 					raise ("#{_n} is of wrong type, should be a #{tp.name}")
@@ -52,6 +54,19 @@ module Model
 	end
 
 	class Base
-		    
-	end                                    
+		
+	end     
+	
+	class Decontextualizer
+		def self.set(name, value)
+			define_method(name.to_s) do 
+				return value
+			end         
+			return self.new  			
+		end             
+		def check(cntr)
+			return !!eval(cntr, binding)
+		end
+	end
+	                               
 end

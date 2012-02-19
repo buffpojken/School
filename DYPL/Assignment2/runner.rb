@@ -7,6 +7,4 @@ puts Person.inspect
 p = Person.new
 p.name = "Kalle"
 p.age = 23
-
-
-puts p.inspect
+                                     
