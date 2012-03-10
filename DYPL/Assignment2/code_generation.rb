@@ -5,38 +5,39 @@ module Model
 		@current = Class.new(Model::Base)   
 		@current.class_eval do 
 			@@constraints = {}
-		end
+		end          
 		spec = File.open(spec)
-		class_eval(spec.read)
+		class_eval(spec.read) 
+		return @current
 	end
 	def self.attribute(_n, tp)
 		@current.class_eval do
 			define_method(_n) do                    
-				d = instance_variable_get(("@"+_n.to_s).to_sym);    
+				d = instance_variable_get(("@"+_n.to_s).to_sym);
 				dc = Decontextualizer.set(_n, d)
-				if d.is_a?(tp) || d.nil? 
+				if d.is_a?(tp) || d.nil?
 					if @@constraints[_n].nil? || @@constraints[_n].all?{|c| dc.check(c)}
 						return d
 					else
-						raise ("#{_n} does not satisfy conditions")
+						raise("#{_n} does not satisfy conditions")
 					end
 			 	else
-					raise ("#{_n} is of wrong type, should be a #{tp.name}")
+					raise("#{_n} is of wrong type, should be a #{tp.name}")
 				end
 			end
 		end
 		@current.class_eval do        
 			define_method((_n.to_s+"=").to_sym) do |a|
 				if a.is_a?(tp)         
-					instance_variable_set(("@"+_n.to_s).to_sym, a)
+					instance_variable_set(("@"+_n.to_s).to_sym, a)     
 					dc = Decontextualizer.set(_n, a)
 					if @@constraints[_n].nil? || @@constraints[_n].all?{|c| dc.check(c)}
 						return a
 					else
-						raise ("#{_n} does not satisfy conditinos")
+						raise("#{_n} does not satisfy conditions")
 					end
 				else
-					raise ("#{_n} is of wrong type, should be a #{tp.name}")
+					raise("#{_n} is of wrong type, should be a #{tp.name}")
 				end
 			end			
 		end
@@ -57,18 +58,25 @@ module Model
 	class Base
 		def self.load_from_file(path)
 			data =  YAML.load(File.open(path))
-			_d = []
+			_d = []                
 			data.each_pair do |k,v|
-				v.each do |item|
+				v.each do |item|                 
 					i = self.new
-					item.each_pair do |name, value|
-						if i.respond_to?(name.to_sym)
-							i.send((name+"=").to_sym, value)
-						end
-					end  
-					_d.push i
+					begin
+						item.each_pair do |name, value|
+							if i.respond_to?(name.to_sym)  
+ 								i.send((name+"=").to_sym, value)
+							else
+								raise RuntimeError.new("#{name} has an unspecified value!")
+							end
+						end         
+					 rescue RuntimeError => e
+						next
+					else
+						_d.push i
+					end
 				end 
-			end        
+			end   
 			_d
 		end
 	end     
