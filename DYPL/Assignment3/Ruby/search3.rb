@@ -13,14 +13,36 @@ nums = %w{
 }
 
 num = "562482"
+                 
+@res = {}
 
-def search(num)
-	puts num
+#puts @db
+def map(num, pivot)
+	stack = ""      
+	num.each_char do |letter|
+		stack += letter        
+		ind = (pivot == -1 ? stack.length : pivot)  
+		if @db.key?(stack)
+			@res[stack.length] ||= []
+			@res[stack.length].push({stack => @db[stack]})
+			query = num.gsub(num.slice!(0..stack.length-1),"")
+			map(query, stack.length)
+		end
+	end                                    
+	return
+end      
+
+def reduce(res, num)
+	res.map do |k,v|
+		word = v.flatten.join(" ")
+		word.gsub(/\s/, "").length == num.length ? word : nil
+	end
 end
 
-#nums.each do |num|
-puts search("107835", {}).inspect
-#end
+n = "562482"
+m = map(n.dup, -1)
+puts @res.inspect    
+#puts reduce(@res, n).inspect
 
 
 
