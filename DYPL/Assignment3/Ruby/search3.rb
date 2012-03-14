@@ -14,18 +14,8 @@ nums = %w{
 
 num = "562482"
 
-
-def search(num, res)
-	current = "" 
-	num.each_char do |letter|
-		current += letter            
-		if @db.key?(current)
-			res[current] = @db[current]
-			d = num.gsub(current, "")       
-			search(d, res) unless d.length == 0
-		end
-	end
-	return res
+def search(num)
+	puts num
 end
 
 #nums.each do |num|
@@ -34,6 +24,18 @@ puts search("107835", {}).inspect
 
 
 
+# def search(num, res)
+# 	current = "" 
+# 	num.each_char do |letter|
+# 		current += letter            
+# 		if @db.key?(current)
+# 			res[current] = @db[current]
+# 			d = num.gsub(current, "")       
+# 			search(d, res) unless d.length == 0
+# 		end
+# 	end
+# 	return res
+# end
 
 # def search(num)
 # 	res = []
