@@ -28,7 +28,7 @@
 	'z' => '9' 
 }                 
 
-def format(result)
+def format(result, num)     
 	 d = []
 	result.each do |r|
 		if d.length == 0
@@ -36,7 +36,8 @@ def format(result)
 		else			
 			r.each{|a| d.map!{|q| q += " " +a}} unless r.nil?
 		end
-	end
+	end 
+	d.reject!{|a| a.gsub(/\s/, "").length != num.length }     
 	return d	
 end
 
@@ -53,41 +54,39 @@ def indexer
 	end
 end               
 indexer                                      
-puts @db.inspect
 
 def search(num, step, result)  
 	if step == num.length 
-		return format(result)
-	end    
-	if @db.key?(num[0..step])
+		return result
+	end
+	if @db.key?(num)
+		result.push(@db[num])
+		return result
+	elsif @db.key?(num[0..step])
 		result.push @db[num[0..step]]
 		num.slice!(0, step+1)
 		search(num, 0, result)						
 	else
 		search(num, step+1, result)
- end
+	end
 end      
 
-# def search(num, pivot, result)   
-# 	return [] if pivot == 0
-# 	if @db.key?(num[0..pivot-1])
-# 		result += @db[num[0..pivot-1]]
-# 		return result
-# 	else
-# 		pivot -= 1
-# 		search(num, pivot, )
-# 	end
-# end  
 
-nums = %w{112
-562482
-4824
-07216084067
-107835
-10789135
-381482
-04824}        
-
+#File.open('nums', 'r').each_line do |number|
+nums = %w{
+	112
+	562482
+	4824
+	07216084067
+	107835
+	10789135
+	381482
+	04824
+} 
 nums.each do |number|
-	puts search(number, 1, []).inspect
+ clone = number.dup
+	result = format(search(number.strip, 1, []), clone)
+	result.each do |enc|
+		puts clone.strip+": " + enc.downcase.strip
+	end
 end
