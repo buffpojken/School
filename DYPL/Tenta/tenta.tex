@@ -1,0 +1,56 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[latin1]{inputenc}
+% \usepackage[swedish]{babel}
+\usepackage[english]{babel}
+
+\usepackage{xspace,graphicx}
+\usepackage{url}
+\usepackage{fancyhdr}
+\usepackage{textcomp}
+
+% The three lines below gives paragraphs with a distance between
+% instead of indented first line.
+\frenchspacing
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1ex plus .5ex minus .5ex}
+
+\title{Title}
+\author{Author Name \\ 
+  \texttt{my-name@dsv.su.se}}
+\date{\today}
+
+\begin{document}
+\maketitle
+%\tableofcontents
+
+\section{Question 1}
+
+Programming paradigms are important \cite{sebesta}.
+
+\section{Question 2}
+
+Logic programming is good \cite{lecture_notes}.
+
+\section{Question 3}
+
+In JavaScript programs attributes are both added and taken away
+from objects during runtime
+\cite{Richards:2010:ADB:1806596.1806598}. Note that the bibtex
+information for articles often can be found in the same place
+where you find the article, e.g. ACM, CiteSeer, etc.
+
+\section{Question 4}
+
+\ldots
+
+\section{Question 5}
+
+\ldots
+
+\bibliographystyle{abbrv}
+\small\raggedright
+\bibliography{bib_file}
+
+
+\end{document} 
