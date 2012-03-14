@@ -33,10 +33,11 @@ def map(num, pivot)
 end      
 
 def reduce(res, num)
-	res.map do |k,v|
-		word = v.flatten.join(" ")
-		word.gsub(/\s/, "").length == num.length ? word : nil
-	end
+	puts res.keys
+	# res.map do |k,v|
+	# 	word = v.flatten.join(" ")
+	# 	word.gsub(/\s/, "").length == num.length ? word : nil
+	# end
 end
 
 n = "562482"
