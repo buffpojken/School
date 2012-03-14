@@ -55,16 +55,18 @@ end
 indexer                                      
 puts @db.inspect
 
-def search(num, step, result)  
-	if step == num.length 
+def search(num, step, result)        
+	if num.nil? || step == 0
 		return format(result)
-	end    
-	if @db.key?(num[0..step])
+	end                  
+	if @db.key?(num[0..step])            		
 		result.push @db[num[0..step]]
-		num.slice!(0, step+1)
-		search(num, 0, result)						
+		num = num[(step+1)..-1]
+		puts num.inspect
+		puts result.inspect    
+		search(num, num.length, result)
 	else
-		search(num, step+1, result)
+		search(num, step-1, result)
  end
 end
 
@@ -78,5 +80,5 @@ nums = %w{112
 04824}        
 
 nums.each do |number|
-	puts search(number, 1, []).inspect
+	puts search("07256248216084067", "07216084067".length, []).inspect
 end
