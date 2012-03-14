@@ -66,7 +66,18 @@ def search(num, step, result)
 	else
 		search(num, step+1, result)
  end
-end
+end      
+
+# def search(num, pivot, result)   
+# 	return [] if pivot == 0
+# 	if @db.key?(num[0..pivot-1])
+# 		result += @db[num[0..pivot-1]]
+# 		return result
+# 	else
+# 		pivot -= 1
+# 		search(num, pivot, )
+# 	end
+# end  
 
 nums = %w{112
 562482
