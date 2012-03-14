@@ -24,16 +24,40 @@ phones = %w{562482}
 	['g', 'h', 'z']
 ]
 
-def lookup(ind, numb, list)
-	suffix_start = @mapping[numb.to_s[0].to_i]
-	suffix_start.each do |sf|
-		if ind[sf]                                
-			list.push lookup(ind[sf], numb.to_s[1..-1], list)
+def expand(number)
+	data = []
+	number.to_s.each_char do |char|
+		data.push @mapping[char.to_i]
+	end                            
+	return data
+end
+
+# def lookup(ind, numb, list)
+# 	suffix_start = @mapping[numb.to_s[0].to_i]
+# 	suffix_start.each do |sf|
+# 		if ind[sf]                                
+# 			list.push lookup(ind[sf], numb.to_s[1..-1], list)
+# 		else
+# 			puts list.inspect
+# 			return list
+# 		end
+# 	end
+# end   
+
+@db = {}
+
+def lookup2(ind, leafs, step)
+	return if leafs.length == step
+	leafs[step].each do |letter|
+		if ind.key?(letter) 
+			puts letter.inspect
+			lookup2(ind[letter], leafs, step + 1)
 		else
-			puts list.inspect
-			return list
+			
 		end
 	end
 end
 
-lookup(@@index, 562482, [])
+da = expand(562482)
+
+lookup2(@@index, da, 0)
