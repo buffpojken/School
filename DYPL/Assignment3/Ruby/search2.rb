@@ -33,8 +33,8 @@ def format(result)
 	result.each do |r|
 		if d.length == 0
 			d.push *r
-		else
-			r.each{|a| d.map!{|q| q += " " +a}}
+		else			
+			r.each{|a| d.map!{|q| q += " " +a}} unless r.nil?
 		end
 	end
 	return d	
@@ -55,18 +55,16 @@ end
 indexer                                      
 puts @db.inspect
 
-def search(num, step, result)        
-	if num.nil? || step == 0
+def search(num, step, result)  
+	if step == num.length 
 		return format(result)
-	end                  
-	if @db.key?(num[0..step])            		
+	end    
+	if @db.key?(num[0..step])
 		result.push @db[num[0..step]]
-		num = num[(step+1)..-1]
-		puts num.inspect
-		puts result.inspect    
-		search(num, num.length, result)
+		num.slice!(0, step+1)
+		search(num, 0, result)						
 	else
-		search(num, step-1, result)
+		search(num, step+1, result)
  end
 end
 
@@ -80,5 +78,5 @@ nums = %w{112
 04824}        
 
 nums.each do |number|
-	puts search("07256248216084067", "07216084067".length, []).inspect
+	puts search(number, 1, []).inspect
 end
