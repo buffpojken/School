@@ -26,7 +26,19 @@
 	'x' => '2', 
 	'y' => '3', 
 	'z' => '9' 
-}      
+}                 
+
+def format(result)
+	 d = []
+	result.each do |r|
+		if d.length == 0
+			d.push *r
+		else
+			r.each{|a| d.map!{|q| q += " " +a}}
+		end
+	end
+	return d	
+end
 
 def number_from_word(word)
 	word.strip.downcase.split("").map!{|char| @reverse_map[char] }.join("")
@@ -42,17 +54,10 @@ def indexer
 end               
 indexer                                      
 puts @db.inspect
+
 def search(num, step, result)  
 	if step == num.length 
-		d = []
-		result.each do |r|
-			if d.length == 0
-				d.push *r
-			else
-				r.each{|a| d.map!{|q| q += " " +a}}
-			end
-		end
-		return d
+		return format(result)
 	end    
 	if @db.key?(num[0..step])
 		result.push @db[num[0..step]]
