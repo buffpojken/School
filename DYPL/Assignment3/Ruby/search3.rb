@@ -18,14 +18,15 @@ num = "562482"
 
 #puts @db
 def map(num, pivot)
-	stack = ""      
+	stack = ""         
 	num.each_char do |letter|
 		stack += letter        
 		ind = (pivot == -1 ? stack.length : pivot)  
 		if @db.key?(stack)
-			@res[stack.length] ||= []
+			@res[stack.length] ||= [] 
+			puts stack.inspect
 			@res[stack.length].push({stack => @db[stack]})
-			query = num.gsub(num.slice!(0..stack.length-1),"")
+ 			query = num.gsub(num.slice!(0..stack.length-1),"")
 			map(query, stack.length)
 		end
 	end                                    
@@ -33,16 +34,13 @@ def map(num, pivot)
 end      
 
 def reduce(res, num)
-	puts res.keys
-	# res.map do |k,v|
-	# 	word = v.flatten.join(" ")
-	# 	word.gsub(/\s/, "").length == num.length ? word : nil
-	# end
+	dat = []
+
 end
 
-n = "562482"
-m = map(n.dup, -1)
-puts @res.inspect    
+n = "107835"
+m = map(n.dup, -1)   
+#puts @res.inspect
 #puts reduce(@res, n).inspect
 
 
