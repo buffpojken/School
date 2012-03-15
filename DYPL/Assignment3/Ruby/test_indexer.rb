@@ -1,4 +1,3 @@
-require 'benchmark'
 
 @reverse_map = {
 	'a' => '5', 
@@ -35,17 +34,10 @@ end
 
 
 def indexer
-	f = File.open('testdict.txt', 'r')
+	f = File.open('huge_dictionary.txt', 'r')
 	f.each_line do |word|
 		digit = number_from_word(word)
 		(@db[digit] ||= []).push(word.strip)
 	end
 end               
 
-@db = {}
-
-@@index_time = Benchmark.bm(7) do |t|
-	t.report("time:") do 
-		indexer                                      
-	end
-end

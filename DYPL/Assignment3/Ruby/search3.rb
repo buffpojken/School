@@ -1,5 +1,7 @@
-load 'test_indexer.rb'
-load 'utils.rb'     
+require 'benchmark'
+
+require './test_indexer'
+require './utils'     
 
 nums = %w{
 	112
@@ -12,62 +14,74 @@ nums = %w{
 	04824
 }
 
-num = "562482"
-                 
+@glob = {}                 
 @res = {}
+@stack = []       
+@res_stack = []       
+@db = {}
 
-#puts @db
-def map(num, pivot)
+def map(num, pivot, o)
 	stack = ""         
 	num.each_char do |letter|
 		stack += letter        
 		ind = (pivot == -1 ? stack.length : pivot)  
 		if @db.key?(stack)
-			@res[stack.length] ||= [] 
-			puts stack.inspect
-			@res[stack.length].push({stack => @db[stack]})
+			@stack.push stack     
+			@res_stack.push @db[stack]
  			query = num.gsub(num.slice!(0..stack.length-1),"")
-			map(query, stack.length)
+			map(query, stack.length, o)
 		end
-	end                                    
+	end          
+	@glob[@stack.join("")] = @res_stack if @stack.join("").length == o.length
+	@res = {}              
+	@stack = []
+	@res_stack = []
 	return
 end      
 
-def reduce(res, num)
-	dat = []
+def reduce(res)            
+	res.each_pair do |number, value_list|   
+		res[number] = cartprod(*value_list)
+	end             
+	res
+end    
 
+if ARGV[0] == 'bm'
+Benchmark.bm do |x|
+	x.report("Indexer:"){ indexer }
+	x.report("Map:") do 
+		File.open('nums', 'r').each_line do |n|     
+			n.strip!
+			m = map(n.dup, -1, n)   
+		end		
+	end             	
+	x.report("Reduce:") do 
+		@res = reduce(@glob)		
+	end
+	x.report("Drawing:") do 
+		@res.each_pair do |phone, result|
+			result.each_with_index do |r, i|       
+				if ARGV[1] == 'np'
+					# Do nothing
+				else
+					puts phone + ": " + r.join(" ").downcase.strip
+				end
+			end
+		end                                       
+	end
+end   
+
+else
+	indexer
+	 File.open('nums', 'r').each_line do |n|     
+		n.strip!
+		m = map(n.dup, -1, n)   
+	end		
+	 @res = reduce(@glob)		
+	 	@res.each_pair do |phone, result|
+			result.each_with_index do |r, i|
+				puts phone + ": " + r.join(" ").downcase.strip
+			end
+		end                                       
+	
 end
-
-n = "107835"
-m = map(n.dup, -1)   
-#puts @res.inspect
-#puts reduce(@res, n).inspect
-
-
-
-# def search(num, res)
-# 	current = "" 
-# 	num.each_char do |letter|
-# 		current += letter            
-# 		if @db.key?(current)
-# 			res[current] = @db[current]
-# 			d = num.gsub(current, "")       
-# 			search(d, res) unless d.length == 0
-# 		end
-# 	end
-# 	return res
-# end
-
-# def search(num)
-# 	res = []
-# 	current = ""
-# 	num.each_char do |letter|
-# 		current += letter
-# 		if @db.key?(current)
-# 			res.push(@db[current])
-# 			d = num.gsub(current, "")
-# 			puts d
-# 		end
-# 	end
-# 	return res
-# end
