@@ -46,42 +46,57 @@ def reduce(res)
 	res
 end    
 
-if ARGV[0] == 'bm'
-Benchmark.bm do |x|
-	x.report("Indexer:"){ indexer }
-	x.report("Map:") do 
+# if ARGV[0] == 'bm'
+# Benchmark.bm do |x|
+# 	x.report("Indexer:"){ indexer }
+# 	x.report("Map:") do     
+		indexer
+		i = 0
 		File.open('nums', 'r').each_line do |n|     
-			n.strip!
+			n.strip!    
 			m = map(n.dup, -1, n)   
-		end		
-	end             	
-	x.report("Reduce:") do 
-		@res = reduce(@glob)		
-	end
-	x.report("Drawing:") do 
-		@res.each_pair do |phone, result|
-			result.each_with_index do |r, i|       
-				if ARGV[1] == 'np'
-					# Do nothing
-				else
-					puts phone + ": " + r.join(" ").downcase.strip
+			@res = reduce(@glob) 
+			@res.each_pair do |phone, result|  
+				puts "#{i.to_s}:#{result.length.to_s}"
+				result.each_with_index do |r, i|       
+					if ARGV[1] == 'np'
+						# Do nothing
+					else
+						puts phone + ": " + r.join(" ").downcase.strip
+					end
 				end
-			end
-		end                                       
-	end
-end   
+			end                                       
+			@glob = {}    
+			i += 1
+		end		
+#	end             	
+	# x.report("Reduce:") do 
+	# 	@res = reduce(@glob)		
+	# end
+# 	x.report("Drawing:") do 
+# 		@res.each_pair do |phone, result|
+# 			result.each_with_index do |r, i|       
+# 				if ARGV[1] == 'np'
+# 					# Do nothing
+# 				else
+# 					puts phone + ": " + r.join(" ").downcase.strip
+# 				end
+# 			end
+# 		end                                       
+# 	end
+# end    
 
-else
-	indexer
-	 File.open('nums', 'r').each_line do |n|     
-		n.strip!
-		m = map(n.dup, -1, n)   
-	end		
-	 @res = reduce(@glob)		
-	 	@res.each_pair do |phone, result|
-			result.each_with_index do |r, i|
-				puts phone + ": " + r.join(" ").downcase.strip
-			end
-		end                                       
-	
-end
+# else
+# 	indexer
+# 	 File.open('nums', 'r').each_line do |n|     
+# 		n.strip!
+# 		m = map(n.dup, -1, n)   
+# 	end		
+# 	 @res = reduce(@glob)		
+# 	 	@res.each_pair do |phone, result|
+# 			result.each_with_index do |r, i|
+# 				puts phone + ": " + r.join(" ").downcase.strip
+# 			end
+# 		end                                       
+# 	
+# end         

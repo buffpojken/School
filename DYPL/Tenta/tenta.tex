@@ -6,6 +6,7 @@
 
 \usepackage{xspace,graphicx}
 \usepackage{url}
+\usepackage{listings}
 \usepackage{fancyhdr}
 \usepackage{textcomp}
 
@@ -15,9 +16,9 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{1ex plus .5ex minus .5ex}
 
-\title{Title}
-\author{Author Name \\ 
-  \texttt{my-name@dsv.su.se}}
+\title{Test - DYPL}
+\author{Daniel Sundstrom \\ 
+  \texttt{daniel@sykewarrior.com}}
 \date{\today}
 
 \begin{document}
@@ -25,28 +26,53 @@
 %\tableofcontents
 
 \section{Question 1}
+%What are the major differences in terms of design philosophy between Ruby and Python? Are there any similarities? In what ways are these design philosophies visible in the languages? Give examples, discuss, explain them and motivate your choices.
+There are some major differences in the philosophy underpinning the design and the choices made for each language. In short, these differences can be described as; \emph{Multiple inheritance vs. Mixins}, \emph{Blocks vs. Functions} and \emph{Built-in Functions vs. Global Object}. These differences will be explored in depth below.
 
-Programming paradigms are important \cite{sebesta}.
+\subsection{Multiple inheritance vs. Mixins}
+One of the major differences in design between Ruby and Python is how the language handles class-based behavior modification, both at runtime and at write time. Ruby favors a module-based approach, where specific methods\footnote{Which, in Ruby, of course includes attributes since they are implemented as methods} are grouped together in named modules, which in turn are included in the desired classes to provide the behavior. Modules can be included both as class methods and as instance methods, depending on the keyword used for inclusion. This is illustrated in the example below. 
+\lstinputlisting{modules.rb}
+As the example shows, this allows for composing the aggregate behavior for a class into separate, re-usable components (since a module can be included in any number of classes). Python, on the other hand, supports the same behavior through a limited form of multiple inheritance\footnote{Resolution is depth-first, left-to-right} as shown below: 
+\lstinputlisting{inheritance.py}
+As clearly shown in the examples above, both of these styles support the same effect - but point to interesting differences in design philosophy. 
+One of the basic tenets of OOP\footnote{Object-Oriented Programming} is its suitability and ability to map and represent real-world systems and relationships, and this is also one of basic foundation of object-oriented modeling as taught and discussed today\cite{good_ideas}\cite{real_world_modelling}. The relationship of RangedNinja in regard to Ninja is more of superset-subset rather than a formal relationship. Ruby's usage of modules to support this behavior relates more closely to the concept of behavior rather than relationship. While multiple inheritance is a powerful tool\footnote{Though it comes at a steep price, since it increases complexity of implementation severely}, the presence of it in Python indicates a philosophy centered on inheritance rather than composition. The philosophy of Ruby, on the other hand, is to loosely couple shared groups of behavior with the desired classes - thus compositing the complete behavior of the class. Good example of where this is a more desired philosophy is when implementing a Data-Context-Interaction pattern.
+\paragraph{}
+On a larger scale this points to a difference in philosophy concerning the goals of the language, more specifically: \begin{quote}{"The principle of least surprise means principle of least my surprise. And it means the principle of least surprise after you learn Ruby very well.  - Yukihiro Matsumoto"}\cite{RubyPhil} 
+\end{quote}
+\paragraph{}
+Multiple inheritance is known to be quite complex to use correctly, while providing very powerful tools for specializing instance-behavior. Composition, on the other hand, is quite simple to understand and use while not being as "strict" in the computer science sense of the word.
+
+\subsection{Blocks vs. Functions}
+Another difference in philosophy between Ruby and Python is the treatment of closures\footnote{A closure allows a function to execute outside its immediate lexical scope}. Where Python supports closures in two major ways - lambdas and unbound functions - Ruby provides a richer set of tools for using closures - procs, lambdas, blocks and method-objects\footnote{It can be argued that procs and lambdas are in essence the same thing, but that falls outside the scope of this text (and is plain wrong, see the arity-handling!)}. However, Python's lambdas are severely limited since they can only contain expressions and not statements, while Ruby allows any valid construct inside a closure. The difference this makes is apparent below: 
+\lstinputlisting{block.rb}
+while the corresponding pythonic way of doing a filter looks something like 
+\lstinputlisting{filter.py}
+\paragraph{}
+Both languages support the notion of unbound functions, even though this is much simpler in Python than in Ruby (where it is actually quite complex), as in method objects not currently bound to an object and which can be bound at a later time to a suitable object. The main difference, however, is apparent when discussing blocks, and their nonexistence in Python. Python has an expressly stated goal from its most prolific core member that \begin{quote}{"Explicit is better than implicit." - Tim Peters}\cite{pythonzen} \end{quote}
+\paragraph{}
+This reflects in the choice of closure-support since the preferred way of handling them in Python - unbound methods - is a very explicit way since one decouples a bound method, making it an unbound method, passes it around (since functions are first-class objects in Python) and then binds them to a scope on execution. At all times do one act upon an Method-object. In Ruby, however, there's a notion of callable objects, that is - objects with respond to the method \emph{call}. These includes all the types mentioned above (and could thus also include user-defined objects implementing the same API). One can, for example, implicitly convert a method argument into a callable object using the following syntax: 
+\lstinputlisting{ampersand.rb}
+Note how the implicitly defined block is converted into an object at method-execution and is implicitly yielded to by the method body. This allows Ruby to use closures as dynamic callbacks for other methods, something that is possible in Python but require the use of external libraries to allow higher-order functions.
+\paragraph{}
+Ruby supports a very implicit style of scope management for both variables, and in order to support a more functionally oriented style of programming, while Python eschews implicitly declared scopes in lieu of making the process explicit and binding it to a single object and a construct.
+\subsection{Built-in Functions vs. Global Object}
+One major design difference between Ruby and Python is how to implement and make available basic and necessary functions and methods to a default scope, i.e. the scope where code is executed unless explicitly executed in another scope. This includes \emph{eval} and \emph{puts} in Ruby and \emph{file} and \emph{print} in Python. Ruby chooses to implement these as instance-methods on a global object\footnote{Much like the window-prototype in regular Javascript} while Python builds them into the interpreter. This has numerous implications, for example - adding new expressions in Ruby is a matter of opening up one of Object, Kernel or BaseObject (which are all present in the inheritance chain by default) and adding new instance methods - while adding new functions on that level in Python is not possible (they must be explicitly referenced). This reflects a difference in where the languages comes from. Python, which originally was intended as "[..] bridge the gap between the shell and C."\cite{pythondesign} whereas Ruby comes from "[...] concentrate on the fun and creative part of programming when they use Ruby."\cite{linuxdev}. Since built-in functions on an interpreter level encourages an expression-oriented style of coding (much like Lisp), something which might feel natural to someone used to C-style procedural coding, it's natural that Python should choose interpreter-level functions. Ruby, on the other hand, springing from a designer who explicitly wants to escape the then traditional style of coding has a design which encourages a completely different style of coding. 
 
 \section{Question 2}
 
-Logic programming is good \cite{lecture_notes}.
+%Explain the term reflection, how it can be useful in software development and if there are any hidden pitfalls. Also provide one well explained and motivated example.
 
 \section{Question 3}
 
-In JavaScript programs attributes are both added and taken away
-from objects during runtime
-\cite{Richards:2010:ADB:1806596.1806598}. Note that the bibtex
-information for articles often can be found in the same place
-where you find the article, e.g. ACM, CiteSeer, etc.
+%Ideally static typing guarantees that type errors do not occur at run-time. But what does dynamic typing guarantee? Is it really a sensible term? Motivate! (And explain what a type error is.)%What would the effects be with respect to static typing if a method_missing hook (similar to that in Ruby or the doesNotUnderstand method in some Smalltalk dialects) was added to the Java language (or equivalent, like C++ or C#). [A method missing hook is a method invoked on an object o when o is sent a message that it does not understand.]
 
 \section{Question 4}
 
-\ldots
+%Motivate why it is (or isn’t) important for a scripting language to have literals for (lightweight) untyped (or generic/ parametrically polymorphic) simple data structures like lists, tuples and maps?%(You should probably start out by defining what a scripting language is.)
 
 \section{Question 5}
 
-\ldots
+%Explain and relate the concepts weak/strong typing and dynamic/static typing to each other. Give examples of languages that fit into the four different cate- gories and explain and motivate your choices.
 
 \bibliographystyle{abbrv}
 \small\raggedright

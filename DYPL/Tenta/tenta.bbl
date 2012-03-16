@@ -1,0 +1,30 @@
+\begin{thebibliography}{1}
+
+\bibitem{real_world_modelling}
+S.~Isoda.
+\newblock Object-oriented real-world modeling revisited.
+\newblock {\em Journal of Systems and Software}, 59(2), 2001.
+
+\bibitem{pythonzen}
+T.~Peters.
+\newblock The zen of python, Aug 2004.
+
+\bibitem{linuxdev}
+B.~Stewart.
+\newblock An interview with the creator of ruby, Nov 2001.
+
+\bibitem{RubyPhil}
+B.~Venners.
+\newblock The philosophy of ruby - interview with yukihiro matsumoto, Sep 2003.
+
+\bibitem{pythondesign}
+B.~Venners.
+\newblock Python's design goals - interview with guido van rossum, Jan 2003.
+
+\bibitem{good_ideas}
+N.~Wirth.
+\newblock Good ideas, through the looking glass.
+\newblock Technical report, Swiss Federal Institute of Technology - Department
+  of Computer Science, 2005.
+
+\end{thebibliography}
