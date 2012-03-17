@@ -1,0 +1,9 @@
+public class StrongType {
+
+    public static void main(String args[]){
+	Float num = new Float(2.0);
+	String var = new String("2");
+	System.out.println(var * num); 
+	// throws an Exception "Unresolved compilation problem"
+    }
+}

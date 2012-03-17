@@ -1,0 +1,15 @@
+class Ninja
+  def initialize(name);@name = name;end
+end
+ninja = Ninja.new("Shinobin")
+begin
+ puts ninja / 2
+rescue NoMethodError => e
+end
+class Ninja
+  def /(args)
+    return @name.length / args
+  end
+end
+
+puts ninja / 2

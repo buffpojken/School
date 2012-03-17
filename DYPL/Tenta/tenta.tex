@@ -9,6 +9,7 @@
 \usepackage{listings}
 \usepackage{fancyhdr}
 \usepackage{textcomp}
+\usepackage{amssymb}
 
 % The three lines below gives paragraphs with a distance between
 % instead of indented first line.
@@ -18,7 +19,9 @@
 
 \title{Test - DYPL}
 \author{Daniel Sundstrom \\ 
-  \texttt{daniel@sykewarrior.com}}
+  \texttt{daniel@sykewarrior.com}\\\\
+  \texttt{I believe in rough consensus and running code.}}
+  
 \date{\today}
 
 \begin{document}
@@ -99,8 +102,24 @@ The code above uses number literals to create a variable \emph{number} in which 
 When developing a program in languages requiring explicitly typed data structures, the programmer often has to write significant parts of the code before it is possible to test the program flow, verify its usability or run it against test data to verify algorithms. Since the language requires the programmer to define exactly what type of objects will inhabit a given structure, those types has to be defined and be at least partially implemented before execution flow can move past the creation of the data structure in question. This prohibits testing of the entire logical flow before significant parts of the program is already written, and it limits the options of experimenting while analyzing the problem solved by the program. This also implies that the cost-of-change for a making a given decision can be very high, and have far-reaching implications. An untyped, literal-based creation of data structures allows for implementing the smallest part required for testing the purpose of the program, the business logic and usability - in turn lowering cost of development, increasing possibility of semantic correctness of the program and increasing developer creativity in problem solving.
 
 \section{Question 5}
-
 %Explain and relate the concepts weak/strong typing and dynamic/static typing to each other. Give examples of languages that fit into the four different cate- gories and explain and motivate your choices.
+According to Craig\cite{craig} it is impossible to discuss programming languages without discussing their type systems. He relates this to the fact that 
+\begin{quote}[...] the untyped $\lambda$-calculus has no consistent models, thus demonstrating that untyped languages produce unpredictable results [...]\end{quote}thus any language producing predictable results needs to have some kind of type system. 
+Two of the major concept pairs in type theory are weak/strong typing and dynamic/static typing. These represent different approaches to adding a type system, and have very different implications for both language design and compiler/interpreter-design.
+\subsubsection{Weak / Strong typing}
+Weak typing implies that the type system supports implicit type conversion by the runtime environment, and that methods usually don't type-check parameters. Strong typing on the other hand implies that types might only interact with other types in clearly specified ways, such as one cannot subtract strings from integers or multiply arrays. Both of these concepts are strongly related to type safety - that is, the ability to guarantee that operations intended for one type does not inadvertently operate on any other type which might produce non-deterministic results. An example of weakly typed language is Javascript, which the example below indicates: 
+\lstinputlisting{weak.js}
+Note that the operation \emph{+} performs an implicit type conversion on the integer \emph{3}, casting it as String from Number, while the operation \emph{*} reverses the operation, instead converting the string \emph{"2"} into an instance of Number with value \emph{2} and producing a wildly different result. Unless the programmer knows the rules of this implicit conversion this can lead to unexpected results further on (as the example proves). One should note, however, that this behavior allows for using \emph{ad-hoc polymorphism} which can yield powerful levels of freedom in program design. This kind of operation would not be allowed in strongly typed language, such as Java, as shown in the example below: 
+\lstinputlisting{strong.java} Note that the compiler doesn't even accept compilation, much less execution of the program, since the behavior of \emph{*} is not defined for arguments of type String and Float. This prevents the program yielding the kind of unexpected results showcased in the Javascript example above. 
+\subsubsection{Dynamic / Static typing}
+The concepts of dynamic and static typing relate to how/when/if type checking is done. Type checking is the process of validating that the operations performed are compatible with the types it is performed on. This can either be done at compile time (static type) or at runtime (dynamic type)\footnote{Though C++ makes an interesting example where it can done at both times through the type information available at runtime.}. An example of a statically typed language is Objective-C, as shown here: 
+\lstinputlisting{static_type.m} This example will not compile, the compiler will throw an error stating that \emph{Invalid operands to binary expression ('int' and 'char *')} and cancel the compilation. Change the type of \emph{string[]} to an \emph{int} would let the compilation finish. Thus, type checking is performed at compile time, making Objective-C a statically typed language.
+Language with dynamic typing performs the type check at runtime, and will throw a runtime error if an operation is applied to incompatible types. This allows for dynamic creation of types, for example - creating new classes in runtime in Ruby, which is a dynamically typed language. The example below displays this: 
+\lstinputlisting{dynamic_type.rb}
+Note that no type-checking is performed until the operation is actually performed (which fails)\footnote{For the sake of clarity in the example, the rescue-clause required here has been removed.}, then re-evaluated the next time 
+at which point the type \emph{Ninja} supports division (albeit with a quite weird implementation) and a proper result is returned.
+This makes Ruby a dynamically typed language, although this particular style of dynamic typing is often referred to as \emph{Duck Typing} since it's not really the type being checked, it's the conformity of the object to the requested interface (in this example, support of division operations). The term implies that the actual identity of the object is irrelevant, and that the relevant issue is whether it can perform the requested operation, as stated by Alex Mertelli\cite{mertelli}, credited with inventing the term in its current usage: \begin{quote}In other words, don't check whether it IS-a duck: check whether it QUACKS-like-a duck, WALKS-like-a duck, etc, etc, depending on exactly what subset of duck-like behaviour you need to play your language-games with.\end{quote}
+
 
 \bibliographystyle{abbrv}
 \small\raggedright

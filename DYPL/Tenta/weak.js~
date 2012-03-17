@@ -1,0 +1,7 @@
+// Javascript
+
+var variable = "2";
+
+console.log(input*3); // => 6 (Number)
+console.log(input+3); // => "23" (String)
+

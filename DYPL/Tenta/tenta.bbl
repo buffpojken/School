@@ -1,45 +1,74 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{11}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem{testfirst}
-{\em On the Effectiveness of Test-first Approach to Programming, Proceedings of
-  the IEEE Transactions on Software Engineering}, volume 31(1). NRC Institute
-  for Information Technology, 2005.
+\bibitem[Craig(2002)]{craig}
+Iain Craig.
+\newblock \emph{The Interpretation of Object-Oriented Programming Languages 2
+  ed.}
+\newblock Springer, 2002.
+\newblock ISBN 1-85233-547-5.
 
-\bibitem{real_world_modelling}
-S.~Isoda.
+\bibitem[Isoda(2001)]{real_world_modelling}
+Sadahiro Isoda.
 \newblock Object-oriented real-world modeling revisited.
-\newblock {\em Journal of Systems and Software}, 59(2), 2001.
+\newblock \emph{Journal of Systems and Software}, 59\penalty0 (2), 2001.
 
-\bibitem{genetic}
-M.~Keijzer, U.-M. O'Reilly, S.~M. Lucas, E.~Costa, and T.~Soule, editors.
-\newblock {\em Genetic Programming, 7th European Conference, EuroGP2004,
-  Coimbra, Portugal, April 5-7, 2004, Proceedings}, volume 3003 of {\em Lecture
-  Notes in Computer Science}. Springer, 2004.
+\bibitem[Keijzer et~al.(2004)Keijzer, O'Reilly, Lucas, Costa, and
+  Soule]{genetic}
+Maarten Keijzer, Una-May O'Reilly, Simon~M. Lucas, Ernesto Costa, and Terence
+  Soule, editors.
+\newblock \emph{Genetic Programming, 7th European Conference, EuroGP2004,
+  Coimbra, Portugal, April 5-7, 2004, Proceedings}, volume 3003 of
+  \emph{Lecture Notes in Computer Science}, 2004. Springer.
+\newblock ISBN 3-540-21346-5.
 
-\bibitem{roitest}
-F.~Padberg and M.~M{\"u}ller.
+\bibitem[Mertelli(2000)]{mertelli}
+Alex Mertelli.
+\newblock Re: Type checking in python?, Jul 2000.
+\newblock URL
+  \url{http://groups.google.com/group/comp.lang.python/msg/e230ca916be58835?hl=en&}.
+
+\bibitem[NRC(2005)]{testfirst}
+\emph{On the Effectiveness of Test-first Approach to Programming, Proceedings
+  of the IEEE Transactions on Software Engineering}, volume 31(1), 2005. NRC
+  Institute for Information Technology, NRC Institute for Information
+  Technology.
+
+\bibitem[Padberg and M{\"u}ller(2003)]{roitest}
+Frank Padberg and Matthias M{\"u}ller.
 \newblock About the return on investment of test-driven development.
-\newblock In {\em ICSE-Workshop on Economics-Driven Software Engineering
+\newblock In \emph{ICSE-Workshop on Economics-Driven Software Engineering
   Research EDSER}, pages 26--31, May 2003.
+\newblock URL \url{/Tichy/uploads/publikationen/35/edser03.pdf}.
 
-\bibitem{pythonzen}
-T.~Peters.
+\bibitem[Peters(2004)]{pythonzen}
+Tim Peters.
 \newblock The zen of python, Aug 2004.
+\newblock URL \url{http://www.python.org/dev/peps/pep-0020/}.
 
-\bibitem{linuxdev}
-B.~Stewart.
+\bibitem[Stewart(2001)]{linuxdev}
+Bruce Stewart.
 \newblock An interview with the creator of ruby, Nov 2001.
+\newblock URL \url{http://linuxdevcenter.com/pub/a/linux/2001/11/29/ruby.html}.
 
-\bibitem{RubyPhil}
-B.~Venners.
-\newblock The philosophy of ruby - interview with yukihiro matsumoto, Sep 2003.
+\bibitem[Venners(2003{\natexlab{a}})]{RubyPhil}
+Bill Venners.
+\newblock The philosophy of ruby - interview with yukihiro matsumoto, Sep
+  2003{\natexlab{a}}.
+\newblock URL \url{http://www.artima.com/intv/ruby.html}.
 
-\bibitem{pythondesign}
-B.~Venners.
-\newblock Python's design goals - interview with guido van rossum, Jan 2003.
+\bibitem[Venners(2003{\natexlab{b}})]{pythondesign}
+Bill Venners.
+\newblock Python's design goals - interview with guido van rossum, Jan
+  2003{\natexlab{b}}.
+\newblock URL \url{http://www.artima.com/intv/pyscale.html}.
 
-\bibitem{good_ideas}
-N.~Wirth.
+\bibitem[Wirth(2005)]{good_ideas}
+Niklaus Wirth.
 \newblock Good ideas, through the looking glass.
 \newblock Technical report, Swiss Federal Institute of Technology - Department
   of Computer Science, 2005.
