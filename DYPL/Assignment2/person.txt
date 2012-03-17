@@ -1,8 +1,0 @@
-title :Person
-attribute :name, String
-attribute :age, Fixnum     
-attribute :length, Fixnum
-constraint :name, 'name != nil'
-constraint :name, 'name.size > 0'
-constraint :name, 'name =~ /^[A-Z]/'
-constraint :age, 'age >= 0'
