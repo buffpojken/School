@@ -1,0 +1,20 @@
+# Ruby
+
+# A mysql-table representing Users
+# +-----------------------+--------------+------+-----+---------+----------------+
+# | Field                 | Type         | Null | Key | Default | Extra          |
+# +-----------------------+--------------+------+-----+---------+----------------+
+# | id                    | int(11)      | NO   | PRI | NULL    | auto_increment |
+# | login                 | varchar(40)  | YES  |     | NULL    |                |
+# | email                 | varchar(100) | YES  |     | NULL    |                |
+# +-----------------------+--------------+------+-----+---------+----------------+
+
+class User < ActiveRecord::Base
+end
+
+# Note that the method find_by_email is dynamically available based on fields in 
+# database.
+user = User.find_by_email("daniel@sykewarrior.com")
+puts user.email # => prints "daniel@sykewarrior.com"
+
+

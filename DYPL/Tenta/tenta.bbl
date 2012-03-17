@@ -5,6 +5,12 @@ S.~Isoda.
 \newblock Object-oriented real-world modeling revisited.
 \newblock {\em Journal of Systems and Software}, 59(2), 2001.
 
+\bibitem{genetic}
+M.~Keijzer, U.-M. O'Reilly, S.~M. Lucas, E.~Costa, and T.~Soule, editors.
+\newblock {\em Genetic Programming, 7th European Conference, EuroGP2004,
+  Coimbra, Portugal, April 5-7, 2004, Proceedings}, volume 3003 of {\em Lecture
+  Notes in Computer Science}. Springer, 2004.
+
 \bibitem{pythonzen}
 T.~Peters.
 \newblock The zen of python, Aug 2004.
