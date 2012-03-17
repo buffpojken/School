@@ -1,0 +1,10 @@
+public MethodMissing{    
+    public String method_missing(String name, 
+				 Arguments<String, Integer, String> args){
+	// Implementation
+    }
+    public Integer method_missing(String name, 
+				  Arguments<Integer, Integer> args){
+	// Implementation
+    }
+}

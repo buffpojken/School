@@ -35,16 +35,12 @@ end
 		indexer
 		i = 0
 		File.open('nums', 'r').each_line do |n|     
-			n.strip!    
+			n.gsub("-", "").strip!    
 			m = map(n.dup, n)   
 			@res = reduce(@glob) 
 			@res.each_pair do |phone, result|  
 				result.each_with_index do |r, i|       
-					if ARGV[1] == 'np'
-						# Do nothing
-					else
 						puts phone + ": " + r.join(" ").downcase.strip
-					end
 				end
 			end                                       
 			@glob = {}    

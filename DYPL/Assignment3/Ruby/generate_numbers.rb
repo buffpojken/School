@@ -1,7 +1,7 @@
 f = File.new('nums', 'w+')
 
-10000000000.times do |i|
-	f.puts i
+2000000.times do |i|
+	f.puts rand(1000000000000)
 end                                    
 
 f.close
