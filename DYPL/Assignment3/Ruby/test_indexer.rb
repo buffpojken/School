@@ -28,16 +28,23 @@
 	'z' => '9' 
 }
 
-def number_from_word(word)
-	word.strip.downcase.split("").map!{|char| @reverse_map[char] }.join("")
+def number_from_word(word)     
+  result = ""
+#	word.strip.downcase.split("").map!{|char| @reverse_map[char] }.join("")
+  word.strip.downcase.length.times do |t|
+    result += @reverse_map[word[t]]
+  end
+  result
 end      
-
 
 def indexer
 	f = File.open('huge_dictionary.txt', 'r')
 	f.each_line do |word|
-		digit = number_from_word(word)
-		(@db[digit] ||= []).push(word.strip)
+		digit = number_from_word(word)  
+		if !@db.key?(digit)
+		  @db[digit] = []
+		end                   
+		@db[digit].push(word.strip)
 	end
 end               
 
