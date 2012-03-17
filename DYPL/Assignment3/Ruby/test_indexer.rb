@@ -30,7 +30,6 @@
 
 def number_from_word(word)     
   result = ""
-#	word.strip.downcase.split("").map!{|char| @reverse_map[char] }.join("")
   word.strip.downcase.length.times do |t|
     result += @reverse_map[word[t]]
   end
