@@ -1,5 +1,10 @@
 \begin{thebibliography}{1}
 
+\bibitem{testfirst}
+{\em On the Effectiveness of Test-first Approach to Programming, Proceedings of
+  the IEEE Transactions on Software Engineering}, volume 31(1). NRC Institute
+  for Information Technology, 2005.
+
 \bibitem{real_world_modelling}
 S.~Isoda.
 \newblock Object-oriented real-world modeling revisited.
@@ -10,6 +15,12 @@ M.~Keijzer, U.-M. O'Reilly, S.~M. Lucas, E.~Costa, and T.~Soule, editors.
 \newblock {\em Genetic Programming, 7th European Conference, EuroGP2004,
   Coimbra, Portugal, April 5-7, 2004, Proceedings}, volume 3003 of {\em Lecture
   Notes in Computer Science}. Springer, 2004.
+
+\bibitem{roitest}
+F.~Padberg and M.~M{\"u}ller.
+\newblock About the return on investment of test-driven development.
+\newblock In {\em ICSE-Workshop on Economics-Driven Software Engineering
+  Research EDSER}, pages 26--31, May 2003.
 
 \bibitem{pythonzen}
 T.~Peters.

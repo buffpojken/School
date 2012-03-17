@@ -1,0 +1,8 @@
+# Ruby
+
+# If run on 32-bit system, use 2**30-1
+number = 2**62-1
+puts number.class # => returns Fixnum
+
+number += 1
+puts number.class # => returns Bignum
