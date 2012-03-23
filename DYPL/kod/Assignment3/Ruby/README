@@ -1,0 +1,3 @@
+Run:
+
+ruby search.rb dictfile.txt numfile.txt

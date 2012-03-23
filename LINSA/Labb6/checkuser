@@ -1,0 +1,17 @@
+#! /bin/bash
+
+if [ $# -ne 1 ]; then
+    echo Username:
+    read user
+else
+    user=$1
+fi
+
+list=( `users` )
+for u in "${list[@]}"
+do
+if [ $u == $user ];then
+ exit 0
+fi
+done
+exit 1

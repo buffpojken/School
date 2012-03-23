@@ -1,0 +1,5 @@
+Run: 
+(Note that you'll have to allocate memory to the java VM dependent on your size of dictionary, 
+when running with 500000 words - about 2 GB was the proper amount)
+
+java -Xmx1024m -jar searcher.jar dictfile.txt num.txt

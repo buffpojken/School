@@ -1,0 +1,26 @@
+#! /bin/bash
+
+case "$1" in 
+start) `date +%s > .timetracker`
+	;;
+status) 
+	if [ -e ".timetracker" ]; then
+	    stamp=`cat .timetracker`
+	    let runtime=`date +%s`-stamp
+	    echo $runtime sekunder sedan start
+	else
+	    echo Timetracker har inte startats
+	fi
+	;;
+stop) 
+	if [ -e ".timetracker" ]; then
+	    let runtime=`date +%s`-`cat .timetracker`
+	    echo $runtime sekunder sedan start
+	    `rm .timetracker`
+	else
+	    echo Timetracker har inte startats
+	fi
+	;;
+*) echo Usage: timetrack "start|status|stop"
+	;;
+esac
