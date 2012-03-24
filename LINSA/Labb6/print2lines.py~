@@ -11,6 +11,5 @@ for path in sys.argv[1:]:
     # Get a filehandle with read
     file = open(filepath, 'r')
     # Run readline() twice
-    print file.name
     for _ in xrange(2): print file.readline()
 

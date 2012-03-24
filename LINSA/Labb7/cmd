@@ -1,0 +1,1 @@
+cat test.html | tr -d '\n' | sed -E 's/.*<body( ?[a-zA-Z="-:;]*)*>(.*)<\/body>\n?<\/html>/\2/' > r

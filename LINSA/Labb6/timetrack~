@@ -7,7 +7,7 @@ status)
 	if [ -e ".timetracker" ]; then
 	    stamp=`cat .timetracker`
 	    let runtime=`date +%s`-stamp
-	    echo $runtime
+	    echo $runtime sekunder sedan start
 	else
 	    echo Timetracker har inte startats
 	fi
@@ -15,7 +15,7 @@ status)
 stop) 
 	if [ -e ".timetracker" ]; then
 	    let runtime=`date +%s`-`cat .timetracker`
-	    echo $runtime
+	    echo $runtime sekunder sedan start
 	    `rm .timetracker`
 	else
 	    echo Timetracker har inte startats
