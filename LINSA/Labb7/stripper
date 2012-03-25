@@ -1,0 +1,23 @@
+#! /bin/bash
+
+# Find all files recursively from the passed location which ends in html/htm
+list=`find $1 -type f \( -name "*.html" -or -name "*.htm" \)`
+# Iterate over the list
+for k in $list
+do 
+# Save path and basename for construction later on
+dir=`dirname $k`
+base=`basename $k`
+# Cat the contents of the file, remove all newlines ( since sed works on lines ), 
+# and pass it to sed which runs the regexp (see below for docs) and write the secound capture group
+# to a new file with the proper name
+`cat $k | tr -d '\n' | sed -E 's/.*<body( ?[a-zA-Z="-:;]*)*>(.*)<\/body>(\s?\t?)*<\/html>/\2/' > "$dir/$base"_nobody`
+done
+
+# .*<body( ?[a-zA-Z="-:;]*)*>(.*)<\/body>(\s?\t?)*<\/html>
+# Match anything before <body since people can have all sorts
+# off stuff in their head-section. Then match entire body-tag, 
+# also allowing for any attributes that might be present. Then, 
+# store the entire contents between <body> and </body> in a capture group
+# for later usage, and then match end of html-file (since we're converting
+# it to a single line, new newlines needs to be accounted for here!
